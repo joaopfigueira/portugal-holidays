@@ -7,11 +7,6 @@ use Holidays\Handlers\Xml;
 class Json implements ClientInterface
 {
     /**
-     * @var Http
-     */
-    private $httpClient;
-
-    /**
      * @var string
      */
     private $directory;

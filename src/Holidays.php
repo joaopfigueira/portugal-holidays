@@ -10,7 +10,7 @@ class Holidays
     /**
      * @var array
      */
-    private $result;
+    private $result = [];
 
     /**
      * @var ClientInterface
@@ -35,15 +35,12 @@ class Holidays
      */
     public function get(array $years)
     {
-        $result = [];
         foreach ($years as $year) {
             $fetch  = $this->client->fetch($year);
             $parsed = $this->handler->parse($fetch);
 
-            $result = array_merge($result, $parsed);
+            $this->result = array_merge($this->result, $parsed);
         }
-
-        $this->result = $result;
 
         return $this;
     }
@@ -75,13 +72,13 @@ class Holidays
      */
     public function asCsv(): string
     {
-        $result = '';
+        $csv = '';
         foreach ($this->result as $holiday) {
-            $result .= implode(',',$holiday);
-            $result .= "\n";
+            $csv .= implode(',',$holiday);
+            $csv .= "\n";
         }
 
-        return $result;
+        return $csv;
     }
 
     /**
