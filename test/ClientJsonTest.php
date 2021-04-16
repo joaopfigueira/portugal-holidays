@@ -17,6 +17,15 @@ class ClientJsonTest extends TestCase
 
     /**
      * @dataProvider yearsProvider
+     *
+     * @covers \Holidays\Clients\Http::__construct
+     * @covers \Holidays\Clients\Http::fetch
+     * @covers \Holidays\Clients\Json::__construct
+     * @covers \Holidays\Clients\Json::writeFile
+     * @covers \Holidays\Handlers\Xml::parse
+     * @covers \Holidays\Holidays::__construct
+     * @covers \Holidays\Holidays::getClient
+     * @covers \Holidays\Clients\Json::buildFromHttp
      */
     public function testCanCreateAYearFile($year)
     {

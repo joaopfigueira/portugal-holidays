@@ -40,6 +40,10 @@ class HolidaysTest extends TestCase
 
     /**
      * @dataProvider yearsProvider
+     *
+     * @covers \Holidays\Holidays::__construct
+     * @covers \Holidays\Holidays::get
+     * @covers \Holidays\Holidays::asArray
      */
     public function testGetAsArrayReturnsArray(array $years): void
     {
@@ -52,6 +56,10 @@ class HolidaysTest extends TestCase
 
     /**
      * @dataProvider yearsProvider
+     *
+     * @covers \Holidays\Holidays::__construct
+     * @covers \Holidays\Holidays::get
+     * @covers \Holidays\Holidays::asJson
      */
     public function testGetAsJsonReturnsString(array $years): void
     {
@@ -64,6 +72,10 @@ class HolidaysTest extends TestCase
 
     /**
      * @dataProvider yearsProvider
+     *
+     * @covers \Holidays\Holidays::__construct
+     * @covers \Holidays\Holidays::get
+     * @covers \Holidays\Holidays::asCsv
      */
     public function testGetAsCsvReturnsString(array $years): void
     {
@@ -76,6 +88,13 @@ class HolidaysTest extends TestCase
 
     /**
      * @dataProvider yearsProvider
+     *
+     * @covers \Holidays\Clients\Json::__construct
+     * @covers \Holidays\Clients\Json::fetch
+     * @covers \Holidays\Handlers\File::parse
+     * @covers \Holidays\Holidays::__construct
+     * @covers \Holidays\Holidays::asArray
+     * @covers \Holidays\Holidays::get
      */
     public function testLiveFromJsonFile(array $years): void
     {

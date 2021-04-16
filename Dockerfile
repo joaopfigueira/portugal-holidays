@@ -5,5 +5,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN apt-get update -y && \
     apt-get install -y libzip-dev zip && \
     docker-php-ext-install zip && \
-    apt-get clean
+    apt-get clean && \
+    pecl install xdebug
+ENV XDEBUG_MODE=coverage
 WORKDIR /usr/src/holidays

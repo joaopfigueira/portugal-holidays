@@ -2,3 +2,6 @@
 composer.lock
 .phpunit.result.cache
 .scannerwork
+.phpunit.cache
+phpunit.coverage.xml
+phpunit.report.xml
