@@ -38,7 +38,7 @@ $result = $holidays->get($years)->asArray();
 ## Contribute
 You can clone and contribute to this project.
 ### Setup local environment:
--make sure you have docker installed in your machine.
--clone the project.
--run setup: `$ ./setup.sh`. You may have to `$ chmod +x setup.sh` to be able to run the script. This will create the docker container and run composer install for you.
--run tests: `$ ./run-tests.sh`.
+*make sure you have docker installed in your machine.
+*clone the project.
+*run setup: `$ ./setup.sh`. You may have to `$ chmod +x setup.sh` to be able to run the script. This will create the docker container and run composer install for you.
+*run tests: `$ ./run-tests.sh`.
