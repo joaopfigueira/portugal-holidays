@@ -1,5 +1,6 @@
 <?php
 
+use Holidays\Type;
 use Holidays\Holidays;
 use Holidays\Clients\Http;
 use Holidays\Clients\Json;
@@ -31,15 +32,17 @@ class HolidaysTest extends TestCase
             ->getMock();
     }
 
-    public function yearsProvider()
+    public function yearsAndTypesProvider()
     {
         return [
-            [[2020,2021]]
+            [[2020,2021], Type::NATIONAL],
+            [[2020,2021], Type::RELIGIOUS],
+            [[2020,2021], Type::OPTIONAL]
         ];
     }
 
     /**
-     * @dataProvider yearsProvider
+     * @dataProvider yearsAndTypesProvider
      *
      * @covers \Holidays\Holidays::__construct
      * @covers \Holidays\Holidays::get
@@ -55,7 +58,7 @@ class HolidaysTest extends TestCase
     }
 
     /**
-     * @dataProvider yearsProvider
+     * @dataProvider yearsAndTypesProvider
      *
      * @covers \Holidays\Holidays::__construct
      * @covers \Holidays\Holidays::get
@@ -71,7 +74,7 @@ class HolidaysTest extends TestCase
     }
 
     /**
-     * @dataProvider yearsProvider
+     * @dataProvider yearsAndTypesProvider
      *
      * @covers \Holidays\Holidays::__construct
      * @covers \Holidays\Holidays::get
@@ -87,7 +90,7 @@ class HolidaysTest extends TestCase
     }
 
     /**
-     * @dataProvider yearsProvider
+     * @dataProvider yearsAndTypesProvider
      *
      * @covers \Holidays\Clients\Json::__construct
      * @covers \Holidays\Clients\Json::fetch
@@ -104,6 +107,29 @@ class HolidaysTest extends TestCase
         $holidays = new Holidays($client, $handler);
 
         $result = $holidays->get($years)->asArray();
+
+        $this->assertTrue(gettype($result) === 'array');
+    }
+
+    /**
+     * @dataProvider yearsAndTypesProvider
+     *
+     * @covers \Holidays\Clients\Json::__construct
+     * @covers \Holidays\Clients\Json::fetch
+     * @covers \Holidays\Handlers\File::parse
+     * @covers \Holidays\Holidays::__construct
+     * @covers \Holidays\Holidays::asArray
+     * @covers \Holidays\Holidays::get
+     * @covers \Holidays\Holidays::filter
+     */
+    public function testLiveFromJsonFileWithFilter(array $years, string $type): void
+    {
+        $client  = new Json;
+        $handler = new File;
+
+        $holidays = new Holidays($client, $handler);
+
+        $result = $holidays->get($years, $type)->asArray();
 
         $this->assertTrue(gettype($result) === 'array');
     }

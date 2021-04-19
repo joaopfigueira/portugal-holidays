@@ -32,14 +32,17 @@ class Holidays
      * calls client and parser dependencies and sets $results
      *
      * @param array array of integers year
+     * @param string holidays type optional
      */
-    public function get(array $years)
+    public function get(array $years, ?string $type = null)
     {
         foreach ($years as $year) {
             $fetch  = $this->client->fetch($year);
             $parsed = $this->handler->parse($fetch);
 
-            $this->result = array_merge($this->result, $parsed);
+            $filter = $type ? $this->filter($parsed, $type) : $parsed;
+
+            $this->result = array_merge($this->result, $filter);
         }
 
         return $this;
@@ -89,5 +92,19 @@ class Holidays
     public function getClient(): ClientInterface
     {
         return $this->client;
+    }
+
+    /**
+     * Filter holidays array by type
+     *
+     * @param  array
+     * @param  string
+     * @return array
+     */
+    private function filter(array $parsed, string $type): array
+    {
+        return array_filter($parsed, function($arr) use($type){
+            return $arr['type'] === $type;
+        });
     }
 }
